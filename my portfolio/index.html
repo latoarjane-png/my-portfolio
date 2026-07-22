@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arjane Lato | Portfolio</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg-dark-1: rgba(15, 20, 28, 0.85);       
+            --bg-dark-2: rgba(25, 30, 42, 0.85);       
+            --card-bg: rgba(30, 36, 48, 0.85);         
+            --main-color: #00eeff;                     
+            --text-color: #ffffff;                     
+            --text-muted: #cbd5e1;                     
+            --input-bg: rgba(43, 48, 60, 0.9);         
+        }
+
+        /* EASY BACKGROUND CSS */
+        body {
+            /* Keep your image file in the same folder as this HTML file */
+            background-image: url('1638902.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-size: 1.1rem;
+        }
+
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #0d1117;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(0, 238, 255, 0.15);
+            border-top: 5px solid var(--main-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            box-shadow: 0 0 15px rgba(0, 238, 255, 0.3);
+        }
+
+        .loader-text {
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-color);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .loader-text span {
+            color: var(--main-color);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #preloader.preloader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 9%;
+            background: rgba(15, 20, 28, 0.9);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 238, 255, 0.15);
+        }
+
+        .logo {
+            font-size: 1.9rem;
+            color: var(--text-color);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--main-color);
+        }
+
+        .navbar {
+            display: flex;
+            gap: 2.2rem;
+        }
+
+        .navbar a {
+            font-size: 1.15rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover,
+        .navbar a.active {
+            color: var(--main-color);
+        }
+
+        /* Section Global Settings */
+        section {
+            min-height: 100vh;
+            padding: 7rem 9% 4rem;
+        }
+
+        .heading {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+
+        .heading span {
+            color: var(--main-color);
+        }
+
+        /* Hexagon Frame */
+        .hexagon-frame {
+            position: relative;
+            width: 340px;
+            height: 380px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background: var(--main-color);
+            padding: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0 0 25px var(--main-color));
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .hexagon-frame:hover {
+            transform: scale(1.03);
+        }
+
+        .hexagon-inner {
+            width: 100%;
+            height: 100%;
+            background: #111622;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            overflow: hidden;
+        }
+
+        .hexagon-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.85rem 2rem;
+            background: var(--main-color);
+            border-radius: 2rem;
+            box-shadow: 0 0 15px var(--main-color);
+            font-size: 1.1rem;
+            color: #1f242d;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            box-shadow: none;
+            transform: translateY(-3px);
+        }
+
+        /* Hero / Home Section */
+        .home {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5rem;
+            background: var(--bg-dark-1);
+            backdrop-filter: blur(4px);
+        }
+
+        .home-content h3 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .home-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0.3rem 0;
+        }
+
+        .home-content h3 span {
+            color: var(--main-color);
+        }
+
+        .home-content p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin: 1.2rem 0 1.8rem;
+            max-width: 580px;
+        }
+
+        .social-media {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-media a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 2.8rem;
+            height: 2.8rem;
+            background: rgba(15, 20, 28, 0.6);
+            border: 2px solid var(--main-color);
+            border-radius: 50%;
+            font-size: 1.25rem;
+            color: var(--main-color);
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .social-media a:hover {
+            background: var(--main-color);
+            color: #1f242d;
+            box-shadow: 0 0 15px var(--main-color);
+        }
+
+        /* About Section */
+        .about {
+            background: var(--bg-dark-2);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5rem;
+        }
+
+        .about .hexagon-inner {
+            background: #111622;
+        }
+
+        .about-content h2 {
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        .about-content h3 {
+            font-size: 1.7rem;
+            color: var(--text-color);
+            margin-top: 0.5rem;
+        }
+
+        .about-content p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin: 1.2rem 0 1.8rem;
+            max-width: 620px;
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--bg-dark-1);
+            backdrop-filter: blur(4px);
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .services-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            padding: 3rem 2rem 2.5rem;
+            border-radius: 1.2rem;
+            text-align: center;
+            border: 1px solid rgba(0, 238, 255, 0.1);
+            transition: 0.3s ease;
+        }
+
+        .services-box:hover {
+            border-color: var(--main-color);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 238, 255, 0.15);
+        }
+
+        .services-box i {
+            font-size: 3.8rem;
+            color: var(--main-color);
+            margin-bottom: 1rem;
+        }
+
+        .services-box h3 {
+            font-size: 1.65rem;
+            margin-bottom: 1rem;
+        }
+
+        .services-box p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Portfolio / Projects Section */
+        .portfolio {
+            background: var(--bg-dark-2);
+            backdrop-filter: blur(4px);
+        }
+
+        .portfolio-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-box {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 238, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--main-color);
+        }
+
+        .portfolio-box img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-box:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-layer {
+            padding: 1.6rem;
+        }
+
+        .portfolio-layer .tag {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--main-color);
+            letter-spacing: 0.5px;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .portfolio-layer h4 {
+            font-size: 1.35rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-layer p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--bg-dark-1);
+            backdrop-filter: blur(4px);
+        }
+
+        .contact form {
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact form .input-box {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .contact form .input-box input,
+        .contact form textarea {
+            width: 100%;
+            padding: 1.1rem 1.3rem;
+            font-size: 1.05rem;
+            color: var(--text-color);
+            background: var(--input-bg);
+            border-radius: 0.6rem;
+            margin: 0.7rem 0;
+            border: 1px solid rgba(0, 238, 255, 0.15);
+            outline: none;
+        }
+
+        .contact form .input-box input:focus,
+        .contact form textarea:focus {
+            border-color: var(--main-color);
+            box-shadow: 0 0 10px rgba(0, 238, 255, 0.2);
+        }
+
+        .contact form .input-box input {
+            width: 49%;
+        }
+
+        .contact form textarea {
+            resize: none;
+        }
+
+        .contact form .btn {
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 9%;
+            background: rgba(15, 20, 28, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 238, 255, 0.15);
+        }
+
+        footer p {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .footer-iconTop a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.7rem;
+            background: var(--main-color);
+            border-radius: 0.5rem;
+            color: #1f242d;
+            text-decoration: none;
+            transition: 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .footer-iconTop a:hover {
+            box-shadow: 0 0 15px var(--main-color);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 991px) {
+            header {
+                padding: 1.5rem 5%;
+            }
+            section {
+                padding: 6rem 5% 3rem;
+            }
+            .home, .about {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 3rem;
+            }
+            .about-content h2 {
+                text-align: center;
+            }
+            .home-content p, .about-content p {
+                margin: 1.2rem auto 1.8rem;
+            }
+            .social-media {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 617px) {
+            .contact form .input-box input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="loader"></div>
+        <p class="loader-text">Loading <span>Portfolio...</span></p>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header>
+        <a href="#" class="logo">My Portfolio<span></span></a>
+        <nav class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Home / Hero Section -->
+    <section class="home" id="home">
+        <div class="home-content">
+            <h3>Hello, It's Me</h3>
+            <h1>Arjane Lato</h1>
+            <h3><span>System Analyst & Designer</span></h3>
+            <p>Information Systems student passionate about technology, systems analysis, and problem-solving. Balancing the discipline of a Taekwondo athlete with an analytical mindset, I strive for excellence in every project.</p>
+            
+            <div class="social-media">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+
+            <a href="#" class="btn">Download CV</a>
+        </div>
+
+        <div class="hexagon-frame">
+            <div class="hexagon-inner">
+                <img src="c:\Users\ajin lato\Downloads\my portfolio\625677737_2057935034940248_3159690056973441212_n.jpg" alt="Arjane Lato Profile Photo">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="hexagon-frame">
+            <div class="hexagon-inner">
+                <img src="profile.jpg" alt="Arjane Lato Profile Photo">
+            </div>
+        </div>
+
+        <div class="about-content">
+            <h2 class="heading">About <span>Me</span></h2>
+            <h3>BS Information Systems | Taekwondo Athlete</h3>
+            <p>Studying at the Institute of Computing, I specialize in analyzing organizational workflows and building tailored tech-driven systems. I leverage structured thinking and technical agility to turn complex enterprise requirements into scalable user experiences.</p>
+            <a href="#about" class="btn">Read More</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="heading">What I'm <span>Building</span></h2>
+
+        <div class="services-container">
+            <div class="services-box">
+                <i class="fa-solid fa-code"></i>
+                <h3>KaisenSys</h3>
+                <p>A web-based operations management system designed specifically for Kaizen Taekwondo Club to streamline administrative workflows and member management.</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+
+            <div class="services-box">
+                <i class="fa-solid fa-notes-medical"></i>
+                <h3>CURA TECH</h3>
+                <p>A startup initiative with the motto “Smarter care for Better you,” developing tech-driven solutions for modern healthcare management.</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+
+            <div class="services-box">
+                <i class="fa-solid fa-diagram-project"></i>
+                <h3>System Architecture</h3>
+                <p>Designing user-centric information systems, data flow diagrams, and functional architecture tailored for real-world enterprise needs.</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <h2 class="heading">Featured <span>Milestones</span></h2>
+
+        <div class="portfolio-container">
+            <!-- Project 1 -->
+            <div class="portfolio-box">
+                <img src="capstone.jpg" alt="Capstone Defense Image">
+                <div class="portfolio-layer">
+                    <span class="tag">Capstone 1 Title Defense</span>
+                    <h4>KaisenSys Web System</h4>
+                    <p>Successfully defended our Capstone 1 proposal under the Institute of Computing, leveraging technology to digitize and optimize club operations.</p>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="portfolio-box">
+                <img src="startup.jpg" alt="Startup Sundayag Image">
+                <div class="portfolio-layer">
+                    <span class="tag">Startup Sundayag 2025</span>
+                    <h4>CURA TECH Pitch</h4>
+                    <p>Participated in Startup Sundayag 2025, presenting our innovative startup pitch focused on delivering smarter healthcare solutions.</p>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="portfolio-box">
+                <img src="it-audit.png" alt="IT Audit in Action Image">
+                <div class="portfolio-layer">
+                    <span class="tag">IT Audit Video Presentation</span>
+                    <h4>Customer Data Breach Simulation</h4>
+                    <p>A simulation presenting findings, risks, and recommended security controls following an e-commerce data breach. Emphasizes IT General Controls and cybersecurity frameworks to enhance data protection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="heading">Contact <span>Me!</span></h2>
+
+        <form action="#">
+            <div class="input-box">
+                <input type="text" placeholder="Full Name">
+                <input type="email" placeholder="Email Address">
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Mobile Number">
+                <input type="text" placeholder="Email Subject">
+            </div>
+            <textarea name="" id="" cols="30" rows="8" placeholder="Your Message"></textarea>
+            <input type="submit" value="Send Message" class="btn">
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Arjane Lato. Institute of Computing. All Rights Reserved.</p>
+        <div class="footer-iconTop">
+            <a href="#home"><i class="fa-solid fa-angle-up"></i></a>
+        </div>
+    </footer>
+
+    <!-- Script to hide preloader -->
+    <script>
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('preloader-hidden');
+            }, 500);
+        });
+    </script>
+
+</body>
+</html>
